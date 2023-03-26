@@ -25,15 +25,17 @@ let block = {
 let rockWidth = 15;
 let rockHeight = 15;
 let totalRocks = 10;
+let fallingRocks = 0
 let rocks = [];
 
 function addRock() {
-    for (let i = 0; i < totalRocks; i++) {
+    for (let i = fallingRocks; i < totalRocks; i++) {
     let rock = {
         width: rockWidth,
         height: rockHeight,
         speed: ''
     }
+    fallingRocks +=1;
     resetRock(rock);
     rocks.push(rock);
     }
@@ -87,8 +89,8 @@ function animate() {
 
         // test for rock-block collision
         if (isColliding(rock, block)) {
-            score -= 10;
-            resetRock(rock);
+            alert("YOU DIED");
+            startGame();
         }
 
         // advance the rocks
@@ -100,8 +102,8 @@ function animate() {
             resetRock(rock);
         }
 
-        // increase difficulty every 45 seconds
-        if (elapsedTime >= 45000) {
+        // increase difficulty every 15 seconds
+        if (elapsedTime >= 15000) {
             totalRocks += 1;
             rock.speed += 0.1;
             elapsedTime = 0;
@@ -127,20 +129,20 @@ function drawAll() {
 
     // draw the background
     // (optionally drawImage an image)
-    ctx.fillStyle = "ivory";
+    ctx.fillStyle = "#ADB5C7";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // draw the block
-    ctx.fillStyle = "skyblue";
+    ctx.fillStyle = "#B278E5";
     ctx.fillRect(block.x, block.y, block.width, block.height);
-    ctx.strokeStyle = "lightgray";
+    ctx.strokeStyle = "#76677E";
     ctx.strokeRect(block.x, block.y, block.width, block.height);
 
     // draw all rocks
     for (let i = 0; i < rocks.length; i++) {
         let rock = rocks[i];
         // optionally, drawImage(rocksImg,rock.x,rock.y)
-        ctx.fillStyle = "gray";
+        ctx.fillStyle = "#320000";
         ctx.fillRect(rock.x, rock.y, rock.width, rock.height);
     }
 
