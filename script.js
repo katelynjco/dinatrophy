@@ -37,7 +37,7 @@ let rocks = [];
 function addRock() {
     for (let i = fallingRocks; i < totalRocks; i++) {
         // Randomize rock size
-        let rockWidth = randomNumber(10, 50);
+        let rockWidth = randomNumber(15, 60);
         let rockHeight = rockWidth * 2;
 
         // Create rock
