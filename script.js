@@ -8,6 +8,7 @@ let continueAnimating = false;
 let score;
 let elapsedTime = 0;
 let lastRockUpdate = Date.now();
+const rockImages = ["img/meteor1.png", "img/meteor2.png", "img/meteor3.png", "img/meteor4.png", "img/meteor5.png", "img/meteor6.png", "img/meteor7.png", "img/meteor8.png"];
 
 // block variables
 let blockWidth = 30;
@@ -21,32 +22,48 @@ let block = {
     blockSpeed: blockSpeed
 }
 
+// randomize variables
+function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+
 // rock variables
-let rockWidth = 15;
-let rockHeight = 15;
+let rockWidth = "";
+let rockHeight = "";
 let totalRocks = 10;
-let fallingRocks = 0
+let fallingRocks = 0;
 let rocks = [];
 
 function addRock() {
     for (let i = fallingRocks; i < totalRocks; i++) {
-    let rock = {
-        width: rockWidth,
-        height: rockHeight,
-        speed: ''
-    }
-    fallingRocks +=1;
-    resetRock(rock);
-    rocks.push(rock);
+        // Randomize rock size
+        let rockWidth = randomNumber(10, 50);
+        let rockHeight = rockWidth * 2;
+
+        // Create rock
+        let rock = {
+            width: rockWidth,
+            height: rockHeight,
+            speed: ''
+        }
+        fallingRocks +=1;
+        resetRock(rock);
+        rocks.push(rock);
     }
 }
+
+// function resetGame() {
+//     // alert("YOU DIED!");
+//     window.location.reload();
+// }
 
 // move the rock to a random position near the top-of-canvas
 // assign the rock a random speed
 function resetRock(rock) {
     rock.x = Math.random() * (canvas.width - rockWidth);
     rock.y = 15 + Math.random() * 30;
-    rock.speed = 0.2 + Math.random() * 0.5;
+    rock.speed = 0.5 + Math.random();
+    rock.image = rockImages[randomNumber(0, rockImages.length - 1)];
 }
 
 
@@ -54,10 +71,10 @@ function resetRock(rock) {
 document.onkeydown = function (event) {
     if (event.keyCode == 39) {
         block.x += block.blockSpeed;
-        if (block.x >= canvas.width - block.width) {
-            continueAnimating = false;
-            alert("Completed with a score of " + score);
-        }
+        // if (block.x >= canvas.width - block.width) {
+        //     continueAnimating = false;
+        //     alert("Completed with a score of " + score);
+        // }
     } else if (event.keyCode == 37) {
         block.x -= block.blockSpeed;
         if (block.x <= 0) {
@@ -87,9 +104,10 @@ function animate() {
 
         let rock = rocks[i];
 
-        // test for rock-block collision
+        // test for rock-block collision and end game
         if (isColliding(rock, block)) {
-            alert("YOU DIED");
+            continueAnimating = false;
+            alert("Completed with a score of " + score);
             startGame();
         }
 
@@ -105,7 +123,7 @@ function animate() {
         // increase difficulty every 15 seconds
         if (elapsedTime >= 15000) {
             totalRocks += 1;
-            rock.speed += 0.1;
+            rock.speed += 0.2;
             elapsedTime = 0;
             addRock();
         }   
@@ -127,23 +145,24 @@ function drawAll() {
     // clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // draw the background
-    // (optionally drawImage an image)
-    ctx.fillStyle = "#ADB5C7";
+     // load the image
+     ctx.fillStyle = "#A56000";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+     let backgroundImage = new Image();
+     backgroundImage.src = "img/background.png";
+    // draw the background image
+    ctx.drawImage(backgroundImage, -5, -5, (canvas.width + 10), (canvas.height + 10));
 
     // draw the block
     ctx.fillStyle = "#B278E5";
     ctx.fillRect(block.x, block.y, block.width, block.height);
-    ctx.strokeStyle = "#76677E";
-    ctx.strokeRect(block.x, block.y, block.width, block.height);
 
     // draw all rocks
     for (let i = 0; i < rocks.length; i++) {
         let rock = rocks[i];
-        // optionally, drawImage(rocksImg,rock.x,rock.y)
-        ctx.fillStyle = "#320000";
-        ctx.fillRect(rock.x, rock.y, rock.width, rock.height);
+        let rockImage = new Image();
+        rockImage.src = rock.image;
+        ctx.drawImage(rockImage, rock.x, rock.y, rock.width, rock.height);
     }
 
     // draw the score
