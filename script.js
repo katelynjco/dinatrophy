@@ -1,18 +1,28 @@
+// menu variables
+const menu = document.getElementById("menu-container");
+const bonusDino = document.getElementById("bonusDino");
+const yellowDino = document.getElementById("yellowDino");
+const purpleDino = document.getElementById("purpleDino");
+const greenDino = document.getElementById("greenDino");
+const blueDino = document.getElementById("blueDino");
+
 //canvas variables
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
 // game variables
+let highScore = parseInt(localStorage.getItem("highScore")) || 0;
 let startingScore = 0;
 let continueAnimating = false;
 let score;
 let elapsedTime = 0;
 let lastRockUpdate = Date.now();
 const rockImages = ["img/meteor1.png", "img/meteor2.png", "img/meteor3.png", "img/meteor4.png", "img/meteor5.png", "img/meteor6.png", "img/meteor7.png", "img/meteor8.png"];
+let dino = '';
 
 // block variables
-let blockWidth = 30;
-let blockHeight = 15;
+let blockWidth = '';
+let blockHeight = '';
 let blockSpeed = 10;
 let block = {
     x: 0,
@@ -37,7 +47,7 @@ let rocks = [];
 function addRock() {
     for (let i = fallingRocks; i < totalRocks; i++) {
         // Randomize rock size
-        let rockWidth = randomNumber(15, 60);
+        let rockWidth = randomNumber(15, 55);
         let rockHeight = rockWidth * 2;
 
         // Create rock
@@ -83,6 +93,11 @@ document.onkeydown = function (event) {
     }
 }
 
+// function to save the high score to local storage
+function saveHighScore() {
+    localStorage.setItem("highScore", highScore.toString());
+  }
+
 
 function animate() {
 
@@ -108,7 +123,7 @@ function animate() {
         if (isColliding(rock, block)) {
             continueAnimating = false;
             alert("Completed with a score of " + score);
-            startGame();
+            location.reload();
         }
 
         // advance the rocks
@@ -117,6 +132,11 @@ function animate() {
         // if the rock is below the canvas,
         if (rock.y > canvas.height) {
             score += 1;
+            if (score > highScore) {
+                highScore = score;
+                saveHighScore();
+                highScoreReward();
+            }
             resetRock(rock);
         }
 
@@ -155,7 +175,19 @@ function drawAll() {
 
     // draw the block
     ctx.fillStyle = "#B278E5";
-    ctx.fillRect(block.x, block.y, block.width, block.height);
+    let playerImage = new Image();
+    if (dino === "bonusDinosaur") {
+        playerImage.src = "img/bonusDino.png";
+    } else if (dino === "yellowDinosaur") {
+        playerImage.src = "img/yellowDino.png";
+    } else if (dino === "purpleDinosaur") {
+        playerImage.src = "img/purpleDino.png";
+    } else if (dino === "greenDinosaur") {
+        playerImage.src = "img/greenDino.png";
+    } else if (dino === "blueDinosaur") {
+        playerImage.src = "img/blueDino.png";
+    }
+    ctx.drawImage(playerImage, block.x, block.y, block.width, block.height);
 
     // draw all rocks
     for (let i = 0; i < rocks.length; i++) {
@@ -166,25 +198,102 @@ function drawAll() {
     }
 
     // draw the score
-    ctx.font = "14px Times New Roman";
-    ctx.fillStyle = "black";
+    ctx.font = "14px Architects Daughter";
+    ctx.fillStyle = "#321300";
     ctx.fillText("Score: " + score, 10, 15);
 }
 
 // button to start the game
 function startGame() {
-    score = startingScore
-    block.x = 0;
-    addRock();
-    for (let i = 0; i < rocks.length; i++) {
-        resetRock(rocks[i]);
+    if (dino === "bonusDinosaur" || dino === "yellowDinosaur"|| dino === "purpleDinosaur"|| dino === "greenDinosaur"|| dino === "blueDinosaur" ) {
+        menu.style.visibility = "hidden";
+        score = startingScore
+        block.x = 0;
+        addRock();
+        for (let i = 0; i < rocks.length; i++) {
+            resetRock(rocks[i]);
+        }
+        if (!continueAnimating) {
+            continueAnimating = true;
+            animate();
+        };
     }
-    if (!continueAnimating) {
-        continueAnimating = true;
-        animate();
-    };
-    
 }
 
-let start = document.getElementById("start");
+// add event listeners to dinosaur menu items
+bonusDino.addEventListener("click", function() {
+    dino = "bonusDinosaur";
+    blockWidth = 75;
+    blockHeight = 30;
+    block = {
+        x: 0,
+        y: canvas.height - blockHeight,
+        width: blockWidth,
+        height: blockHeight,
+        blockSpeed: blockSpeed
+      }
+  });
+  
+  yellowDino.addEventListener("click", function() {
+    dino = "yellowDinosaur";
+    blockWidth = 75;
+    blockHeight = 45;
+    block = {
+        x: 0,
+        y: canvas.height - blockHeight,
+        width: blockWidth,
+        height: blockHeight,
+        blockSpeed: blockSpeed
+      }
+  });
+  
+  purpleDino.addEventListener("click", function() {
+    dino = "purpleDinosaur";
+    blockWidth = 60;
+    blockHeight = 60;
+    block = {
+        x: 0,
+        y: canvas.height - blockHeight,
+        width: blockWidth,
+        height: blockHeight,
+        blockSpeed: blockSpeed
+      }
+  });
+  
+  greenDino.addEventListener("click", function() {
+    dino = "greenDinosaur";
+    blockWidth = 45;
+    blockHeight = 75;
+    block = {
+        x: 0,
+        y: canvas.height - blockHeight,
+        width: blockWidth,
+        height: blockHeight,
+        blockSpeed: blockSpeed
+      }
+  });
+  
+  blueDino.addEventListener("click", function() {
+    dino = "blueDinosaur";
+    blockWidth = 60;
+    blockHeight = 75;
+    block = {
+        x: 0,
+        y: canvas.height - blockHeight,
+        width: blockWidth,
+        height: blockHeight,
+        blockSpeed: blockSpeed
+      }
+  });
+
+function highScoreReward() {
+    if (highScore > 69) {
+        bonusDino.hidden = false;
+    } else {
+        bonusDino.hidden = true;
+    }
+}
+
+highScoreReward();
+const start = document.getElementById("start");
 start.addEventListener('click', startGame);

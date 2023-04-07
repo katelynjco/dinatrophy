@@ -13,7 +13,24 @@
 </head>
 <body>
     <div class="menu-container" id="menu-container">
-        <button id="start">Start Game</button><br>
+        <div class="dinos" id="dinos">
+            <div class="title-container" id="title-container"></div>
+            <p>CHOOSE YOUR DINO!</p>
+            <div class="dino-container" id="dino-container">
+                <div id="bonusDino" hidden>
+                    <img src="img/bonusDino.png" alt="Bonus Dino">
+                </div><div id="yellowDino">
+                    <img src="img/yellowDino.png" alt="Yellow Dino">
+                </div><div id="purpleDino">
+                    <img src="img/purpleDino.png" alt="Purple Dino">
+                </div><div id="greenDino">
+                    <img src="img/greenDino.png" alt="Green Dino">
+                </div><div id="blueDino">
+                    <img src="img/blueDino.png" alt="Blue Dino">
+                </div>
+            </div>
+            <button id="start" class="btn">START GAME</button><br>
+        </div>   
     </div>
     <div id="canvas-container">
         <canvas id="canvas" width=800 height=400></canvas>
