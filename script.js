@@ -121,8 +121,8 @@ function animate() {
 
         // test for rock-block collision and end game
         if (isColliding(rock, block)) {
-            continueAnimating = false;
             alert("Completed with a score of " + score);
+            continueAnimating = false;
             location.reload();
         }
 

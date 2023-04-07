@@ -5,6 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     font-family: 'Architects Daughter', sans-serif;
+    overflow: hidden; /* Hide scrollbars */
 }
 .title-container {
     height: 90px;
