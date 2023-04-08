@@ -9,6 +9,8 @@ const start = document.getElementById("start");
 const continueBtn = document.getElementById("continue-btn");
 const death = document.getElementById("death-container");
 const dinos = document.querySelectorAll('.dino-container > div');
+const scoreDisplay = document.getElementById("your-score");
+const highScoreDisplay = document.getElementById("high-score");
 
 //canvas variables
 const canvas = document.getElementById("canvas");
@@ -102,6 +104,8 @@ function restartGame() {
 function youDied() {
     death.style.visibility = "visible";
     continueAnimating = false;
+    scoreDisplay.innerText = `Meteors Dodged: ${score}`;
+    highScoreDisplay.innerText = `High Score: ${highScore}`;
     continueBtn.addEventListener('click', restartGame);
 }
 
