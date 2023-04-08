@@ -18,18 +18,40 @@
             <p>CHOOSE YOUR DINO!</p>
             <div class="dino-container" id="dino-container">
                 <div id="bonusDino" hidden>
-                    <img src="img/bonusDino.png" alt="Bonus Dino">
+                    <div id="bonusSelected">
+                        <img src="img/bonusDino.png" alt="Bonus Dino">
+                    </div>
                 </div><div id="yellowDino">
-                    <img src="img/yellowDino.png" alt="Yellow Dino">
+                    <div id="yellowSelected">
+                        <img src="img/yellowDino.png" alt="Yellow Dino">
+                    </div>
                 </div><div id="purpleDino">
-                    <img src="img/purpleDino.png" alt="Purple Dino">
+                    <div id="purpleSelected">
+                        <img src="img/purpleDino.png" alt="Purple Dino">
+                    </div>
                 </div><div id="greenDino">
-                    <img src="img/greenDino.png" alt="Green Dino">
+                    <div id="greenSelected">
+                        <img src="img/greenDino.png" alt="Green Dino">
+                    </div>
                 </div><div id="blueDino">
-                    <img src="img/blueDino.png" alt="Blue Dino">
+                    <div id="blueSelected">
+                        <img src="img/blueDino.png" alt="Blue Dino">
+                    </div>
                 </div>
             </div>
             <button id="start" class="btn">START GAME</button><br>
+        </div>   
+    </div>
+    <div class="death-container" id="death-container">
+        <div class="scores" id="scores">
+            <div class="you-died" id="you-died"></div>
+            <div class="text" id="text">
+                <div class="your-score" id="your-score">YOUR SCORE</div>
+                <div class="high-score" id="high-score">High Score</div>
+            </div>
+            <div class="continue-button" id="continue-button">
+                <button id="continue-btn" class="continue-btn">Continue</button>
+            </div>
         </div>   
     </div>
     <div id="canvas-container">
