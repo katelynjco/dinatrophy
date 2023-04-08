@@ -177,3 +177,20 @@ canvas {
     background-position: center;
     background-size: contain;
 }
+#bonusSelected:hover,
+#yellowSelected:hover,
+#purpleSelected:hover,
+#greenSelected:hover,
+#blueSelected:hover {
+    background-image: url("img/selected.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.selected {
+    background-image: url("img/selected.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}

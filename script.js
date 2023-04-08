@@ -8,6 +8,7 @@ const blueDino = document.getElementById("blueDino");
 const start = document.getElementById("start");
 const continueBtn = document.getElementById("continue-btn");
 const death = document.getElementById("death-container");
+const dinos = document.querySelectorAll('.dino-container > div');
 
 //canvas variables
 const canvas = document.getElementById("canvas");
@@ -240,6 +241,13 @@ function startGame() {
     }
 }
 
+// reset selector
+dinos.forEach(dino => {
+    dino.addEventListener('click', () => {
+        dinos.forEach(d => d.classList.remove('selected'));
+    });
+});
+
 // add event listeners to dinosaur menu items
 bonusDino.addEventListener("click", function() {
     dino = "bonusDinosaur";
@@ -252,6 +260,7 @@ bonusDino.addEventListener("click", function() {
         height: blockHeight,
         blockSpeed: blockSpeed
       }
+    bonusDino.classList.add('selected');
   });
   
   yellowDino.addEventListener("click", function() {
@@ -265,6 +274,7 @@ bonusDino.addEventListener("click", function() {
         height: blockHeight,
         blockSpeed: blockSpeed
       }
+    yellowDino.classList.add('selected');
   });
   
   purpleDino.addEventListener("click", function() {
@@ -278,6 +288,8 @@ bonusDino.addEventListener("click", function() {
         height: blockHeight,
         blockSpeed: blockSpeed
       }
+    purpleDino.classList.add('selected');
+
   });
   
   greenDino.addEventListener("click", function() {
@@ -291,6 +303,8 @@ bonusDino.addEventListener("click", function() {
         height: blockHeight,
         blockSpeed: blockSpeed
       }
+    greenDino.classList.add('selected');
+
   });
   
   blueDino.addEventListener("click", function() {
@@ -304,6 +318,7 @@ bonusDino.addEventListener("click", function() {
         height: blockHeight,
         blockSpeed: blockSpeed
       }
+    blueDino.classList.add('selected');
   });
 
 function highScoreReward() {
@@ -313,6 +328,7 @@ function highScoreReward() {
         bonusDino.hidden = true;
     }
 }
+
 
 highScoreReward();
 start.addEventListener('click', startGame);
