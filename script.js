@@ -353,11 +353,11 @@ bonusDino.addEventListener("click", function() {
 function highScoreReward() {
     if (highScore > 1000) {
         bonusDino.style.display = "inherit";
-        bonusDinoName.style.visibility = "visible";
+        bonusDinoName.style.visibility = "visible !important";
         dinoNames.style.width = "950px";
     } else {
         bonusDino.style.display = "none";
-        bonusDinoName.style.visibility = "hidden";
+        bonusDinoName.style.visibility = "hidden !important";
         dinoNames.style.width = "775px";
     }
 }
