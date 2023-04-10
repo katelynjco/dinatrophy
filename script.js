@@ -1,6 +1,8 @@
 // menu variables
 const menu = document.getElementById("menu-container");
 const bonusDino = document.getElementById("bonusDino");
+const bonusDinoName = document.getElementById("bonusDinoname");
+const dinoNames = document.getElementById("dino-name");
 const yellowDino = document.getElementById("yellowDino");
 const purpleDino = document.getElementById("purpleDino");
 const greenDino = document.getElementById("greenDino");
@@ -349,10 +351,14 @@ bonusDino.addEventListener("click", function() {
   });
 
 function highScoreReward() {
-    if (highScore > 200) {
+    if (highScore > 1000) {
         bonusDino.style.display = "inherit";
+        bonusDinoName.style.visibility = "visible";
+        dinoNames.style.width = "950px";
     } else {
         bonusDino.style.display = "none";
+        bonusDinoName.style.visibility = "hidden";
+        dinoNames.style.width = "775px";
     }
 }
 

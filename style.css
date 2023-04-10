@@ -281,6 +281,8 @@ canvas {
     width:  950px;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
     padding-top: 75px;
     color: #A53F00;
 }
@@ -300,6 +302,10 @@ canvas {
   text-align: center;
   font-weight: bold;
   font-size: 16px;
+}
+
+#bonusDinoname {
+  visibility: hidden;
 }
 
   /* ---------- Animation ---------- */
