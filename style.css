@@ -280,7 +280,7 @@ canvas {
 #dino-name {
     width:  950px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     padding-top: 75px;
     color: #A53F00;
 }
@@ -294,12 +294,12 @@ canvas {
   
 #dino-name > div > div {
   display: flex;
-    padding: 10px;
-    background-color: #FFAE7C;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 16px;
+  padding: 10px;
+  background-color: #FFAE7C;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
 }
 
   /* ---------- Animation ---------- */
