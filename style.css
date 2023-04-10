@@ -325,7 +325,7 @@ canvas {
 }
 
 #reward {
-    height: 350px;
+    height: 390px;
     width: 600px;
     margin: 0 auto;
     background-color: rgb(255, 232, 218, 0.7);
@@ -335,6 +335,7 @@ canvas {
     justify-content: center;
     text-align: center;
 }
+
 #congrat {
     width: 600px;
     background-image: url("img/congrats.png");
@@ -348,7 +349,7 @@ canvas {
     justify-content: center;
 }
 
-#congrat-text {
+.congrat-text {
   font-size: 25px;
   font-weight: bold;
   color: #321300;
@@ -356,6 +357,7 @@ canvas {
 }
 
 #bonusreward {
+  margin: 30px;
   animation: blinker 2s linear infinite;
 }
 
