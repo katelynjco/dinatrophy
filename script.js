@@ -351,7 +351,7 @@ bonusDino.addEventListener("click", function() {
   });
 
 function highScoreReward() {
-    if (highScore > 2000) {
+    if (highScore > 200) {
         bonusDino.style.display = "inherit";
         bonusDinoName.style.visibility = "visible";
         dinoNames.style.width = "950px";
