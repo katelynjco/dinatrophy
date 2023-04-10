@@ -305,7 +305,7 @@ canvas {
 }
 
 #bonusDinoname {
-  visibility: hidden !important;
+  visibility: hidden;
 }
 
   /* ---------- Animation ---------- */

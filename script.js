@@ -351,13 +351,13 @@ bonusDino.addEventListener("click", function() {
   });
 
 function highScoreReward() {
-    if (highScore > 1000) {
+    if (highScore > 2000) {
         bonusDino.style.display = "inherit";
-        bonusDinoName.style.visibility = "visible !important";
+        bonusDinoName.style.visibility = "visible";
         dinoNames.style.width = "950px";
     } else {
         bonusDino.style.display = "none";
-        bonusDinoName.style.visibility = "hidden !important";
+        bonusDinoName.style.visibility = "hidden";
         dinoNames.style.width = "775px";
     }
 }
