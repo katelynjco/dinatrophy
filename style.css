@@ -278,7 +278,7 @@ canvas {
 }
 
 #dino-name {
-    width: 950px;
+    width: 775px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -306,6 +306,57 @@ canvas {
 
 #bonusDinoname {
   visibility: hidden;
+}
+
+#highScore-container {
+  position: absolute;
+  width: 100%;
+  height: 200%;
+  margin-top: -50px;
+  background-color: rgb(255, 174, 124, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  visibility: hidden;
+  font-family: 'Architects Daughter', sans-serif;
+  font-size: 30px;
+  color: #321300;
+}
+
+#reward {
+    height: 350px;
+    width: 600px;
+    margin: 0 auto;
+    background-color: rgb(255, 232, 218, 0.7);
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+#congrat {
+    width: 600px;
+    background-image: url("img/congrats.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin: 0 auto;
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#congrat-text {
+  font-size: 25px;
+  font-weight: bold;
+  color: #321300;
+  padding-bottom: 20px;
+}
+
+#bonusreward {
+  animation: blinker 2s linear infinite;
 }
 
   /* ---------- Animation ---------- */

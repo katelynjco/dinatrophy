@@ -10,6 +10,7 @@ const blueDino = document.getElementById("blueDino");
 const start = document.getElementById("start");
 const continueBtn = document.getElementById("continue-btn");
 const death = document.getElementById("death-container");
+const bonusReward = document.getElementById("highScore-container");
 const dinos = document.querySelectorAll('.dino-container > div');
 const scoreDisplay = document.getElementById("your-score");
 const highScoreDisplay = document.getElementById("high-score");
@@ -21,6 +22,7 @@ const ctx = canvas.getContext("2d");
 
 // game variables
 let highScore = parseInt(localStorage.getItem("highScore")) || 0;
+let earnedBonus = parseInt(localStorage.getItem("earnedBonus")) || undefined;
 let startingScore = 0;
 let continueAnimating = false;
 let score = '';
@@ -107,13 +109,27 @@ function restartGame() {
    location.reload(); 
 }
 
+function bonusShown() {
+    earnedBonus = true;
+    localStorage.setItem("earnedBonus", highScore.toString());
+    document.removeEventListener('click', bonusShown);
+    youDied();
+}
+
 // death screen
 function youDied() {
-    death.style.visibility = "visible";
-    continueAnimating = false;
-    scoreDisplay.innerText = `Meteors Dodged: ${score}`;
-    highScoreDisplay.innerText = `High Score: ${highScore}`;
-    continueBtn.addEventListener('click', restartGame);
+    if ((earnedBonus === undefined) && (highScore >= 200)) {
+        continueAnimating = false;
+        bonusReward.style.visibility = "visible";
+        document.addEventListener('click', bonusShown);
+    } else {
+        bonusReward.style.visibility = "hidden";
+        death.style.visibility = "visible";
+        continueAnimating = false;
+        scoreDisplay.innerText = `Meteors Dodged: ${score}`;
+        highScoreDisplay.innerText = `High Score: ${highScore}`;
+        continueBtn.addEventListener('click', restartGame);
+    }
 }
 
 // animate game and elements
@@ -263,6 +279,7 @@ function hideDemo() {
 // display instructions
 function demo() {
     menu.style.visibility = "hidden";
+    bonusDinoName.style.visibility = "hidden";
     dirContainer.style.display = "inherit";
     document.addEventListener("keydown", hideDemo);
 }
