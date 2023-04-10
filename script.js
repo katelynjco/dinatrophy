@@ -37,7 +37,7 @@ let block = {};
 // randomize variables
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
-  }
+}
 
 // rock variables
 let rockWidth = '';
@@ -89,6 +89,10 @@ document.onkeydown = function (event) {
             block.x = 0;
         }
     }
+}
+
+function toggleButton() {
+    start.disabled = false;
 }
 
 // function to save the high score to local storage
@@ -246,14 +250,11 @@ function startGame() {
 }
 
 // hide instructions
-
 function hideDemo() {
     if (event.keyCode == 39 || event.keyCode == 37) {
         dirContainer.style.display = "none";
         document.removeEventListener("keydown", hideDemo);
         startGame();
-    } else {
-
     }
 }
 
@@ -284,6 +285,7 @@ bonusDino.addEventListener("click", function() {
         blockSpeed: blockSpeed
       }
     bonusDino.classList.add('selected');
+    toggleButton();
   });
   
   yellowDino.addEventListener("click", function() {
@@ -298,6 +300,7 @@ bonusDino.addEventListener("click", function() {
         blockSpeed: blockSpeed
       }
     yellowDino.classList.add('selected');
+    toggleButton();
   });
   
   purpleDino.addEventListener("click", function() {
@@ -312,7 +315,7 @@ bonusDino.addEventListener("click", function() {
         blockSpeed: blockSpeed
       }
     purpleDino.classList.add('selected');
-
+    toggleButton();
   });
   
   greenDino.addEventListener("click", function() {
@@ -327,7 +330,7 @@ bonusDino.addEventListener("click", function() {
         blockSpeed: blockSpeed
       }
     greenDino.classList.add('selected');
-
+    toggleButton();
   });
   
   blueDino.addEventListener("click", function() {
@@ -342,6 +345,7 @@ bonusDino.addEventListener("click", function() {
         blockSpeed: blockSpeed
       }
     blueDino.classList.add('selected');
+    toggleButton();
   });
 
 function highScoreReward() {
