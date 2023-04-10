@@ -11,6 +11,7 @@ const death = document.getElementById("death-container");
 const dinos = document.querySelectorAll('.dino-container > div');
 const scoreDisplay = document.getElementById("your-score");
 const highScoreDisplay = document.getElementById("high-score");
+const dirContainer = document.getElementById("dir-container");
 
 //canvas variables
 const canvas = document.getElementById("canvas");
@@ -231,7 +232,6 @@ function drawAll() {
 // button to start the game
 function startGame() {
     if (dino === "bonusDinosaur" || dino === "yellowDinosaur"|| dino === "purpleDinosaur"|| dino === "greenDinosaur"|| dino === "blueDinosaur" ) {
-        menu.style.visibility = "hidden";
         score = startingScore;
         block.x = 0;
         addRock();
@@ -243,6 +243,25 @@ function startGame() {
             animate();
         };
     }
+}
+
+// hide instructions
+
+function hideDemo() {
+    if (event.keyCode == 39 || event.keyCode == 37) {
+        dirContainer.style.display = "none";
+        document.removeEventListener("keydown", hideDemo);
+        startGame();
+    } else {
+
+    }
+}
+
+// display instructions
+function demo() {
+    menu.style.visibility = "hidden";
+    dirContainer.style.display = "inherit";
+    document.addEventListener("keydown", hideDemo);
 }
 
 // reset selector
@@ -327,12 +346,11 @@ bonusDino.addEventListener("click", function() {
 
 function highScoreReward() {
     if (highScore > 200) {
-        bonusDino.hidden = false;
+        bonusDino.style.display = "inherit";
     } else {
-        bonusDino.hidden = true;
+        bonusDino.style.display = "none";
     }
 }
 
-
 highScoreReward();
-start.addEventListener('click', startGame);
+start.addEventListener('click', demo);
