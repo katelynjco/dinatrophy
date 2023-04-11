@@ -16,6 +16,148 @@ const scoreDisplay = document.getElementById("your-score");
 const highScoreDisplay = document.getElementById("high-score");
 const dirContainer = document.getElementById("dir-container");
 
+// audio variables
+const audioPlayer = document.querySelector(".audio-player");
+const songElement = document.querySelector('.name');
+const musicPlayerSymbol = document.getElementById("musicplayer-symbol");
+const audio = new Audio();
+
+// songs
+const songNodes = [
+    {
+        id: 1,
+        SongArtist: "Summer Chill Reggaeton by Alex-Productions",
+        url: "audio/alex-productions-summer-chill-reggaeton-island.mp3",
+    },
+    {
+        id: 2,
+        SongArtist: "El Guiso by Dubaquinho",
+        url: "audio/dubaquinho-el-guiso.mp3",
+    },
+    {
+        id: 3,
+        SongArtist: "Tropical Sensation (Instrumental) by Mike Leite",
+        url: "audio/mike-leite-tropical-sensation-instrumental.mp3",
+    },
+    {
+        id: 4,
+        SongArtist: "Easy by Ron Gelinas Chillout Lounge",
+        url: "audio/ron-gelinas-chillout-lounge-easy.mp3",
+    },
+    {
+        id: 5,
+        SongArtist: "Boat by Vlad Gluschenko",
+        url: "audio/vlad-gluschenko-boat.mp3",
+    },
+]
+
+// Randomly play and update song
+function playRandomSong() {
+    const randomIndex = Math.floor(Math.random() * songNodes.length); // Generate random index
+    const randomSong = songNodes[randomIndex]; // Get random song from array
+    audio.src = randomSong.url; // Set audio source to the URL of the random song
+    songElement.textContent = randomSong.SongArtist;
+    audio.play(); // Play audio
+}
+
+playRandomSong();
+
+
+// audio player functionality
+console.dir(audio);
+
+audio.addEventListener(
+  "loadeddata",
+  () => {
+    audioPlayer.querySelector(".time .length").textContent = getTimeCodeFromNum(
+      audio.duration
+    );
+    audio.volume = .75;
+  },
+  false
+);
+
+//click on timeline to skip around
+const timeline = audioPlayer.querySelector(".timeline");
+timeline.addEventListener("click", e => {
+  const timelineWidth = window.getComputedStyle(timeline).width;
+  const timeToSeek = e.offsetX / parseInt(timelineWidth) * audio.duration;
+  audio.currentTime = timeToSeek;
+}, false);
+
+//click volume slider to change volume
+const volumeSlider = audioPlayer.querySelector(".controls .volume-slider");
+volumeSlider.addEventListener('click', e => {
+  const sliderWidth = window.getComputedStyle(volumeSlider).width;
+  const newVolume = e.offsetX / parseInt(sliderWidth);
+  audio.volume = newVolume;
+  audioPlayer.querySelector(".controls .volume-percentage").style.width = newVolume * 100 + '%';
+}, false)
+
+//check audio percentage and update time accordingly
+setInterval(() => {
+  const progressBar = audioPlayer.querySelector(".progress");
+  progressBar.style.width = audio.currentTime / audio.duration * 100 + "%";
+  audioPlayer.querySelector(".time .current").textContent = getTimeCodeFromNum(
+    audio.currentTime
+  );
+}, 500);
+
+
+//toggle between playing and pausing on button click
+const playBtn = audioPlayer.querySelector(".controls .toggle-play");
+playBtn.addEventListener(
+  "click",
+  () => {
+    if (audio.paused) {
+      playBtn.classList.remove("play");
+      playBtn.classList.add("pause");
+      audio.play();
+    } else {
+      playBtn.classList.remove("pause");
+      playBtn.classList.add("play");
+      audio.pause();
+    }
+  },
+  false
+);
+
+audioPlayer.querySelector(".volume-button").addEventListener("click", () => {
+  const volumeEl = audioPlayer.querySelector(".volume-container .volume");
+  audio.muted = !audio.muted;
+  if (audio.muted) {
+    volumeEl.classList.remove("icono-volumeMedium");
+    volumeEl.classList.add("icono-volumeMute");
+  } else {
+    volumeEl.classList.add("icono-volumeMedium");
+    volumeEl.classList.remove("icono-volumeMute");
+  }
+});
+
+//turn 128 seconds into 2:08
+function getTimeCodeFromNum(num) {
+  let seconds = parseInt(num);
+  let minutes = parseInt(seconds / 60);
+  seconds -= minutes * 60;
+  const hours = parseInt(minutes / 60);
+  minutes -= hours * 60;
+
+  if (hours === 0) return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+  return `${String(hours).padStart(2, 0)}:${minutes}:${String(
+    seconds % 60
+  ).padStart(2, 0)}`;
+}
+
+// Add event listener for click event
+musicPlayerSymbol.addEventListener("click", () => {
+    // Target the "musicplayer" element
+    const musicPlayer = document.getElementById("musicplayer");
+  
+    // Toggle the visibility of the "musicplayer" element
+    musicPlayer.style.display = musicPlayer.style.display === "none" ? "block" : "none";
+  });
+
+
 //canvas variables
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -278,6 +420,7 @@ function hideDemo() {
 
 // display instructions
 function demo() {
+    toggleButton();
     menu.style.visibility = "hidden";
     bonusDinoName.style.visibility = "hidden";
     dirContainer.style.display = "inherit";
@@ -378,6 +521,7 @@ function highScoreReward() {
         dinoNames.style.width = "775px";
     }
 }
+
 
 highScoreReward();
 start.addEventListener('click', demo);
